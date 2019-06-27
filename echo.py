@@ -6,17 +6,38 @@ __author__ = "???"
 
 
 import sys
+import argparse
 
 
 def create_parser():
+    parser = argparse.ArgumentParser(
+        description='Perform transformation on input text.')
+    parser.add_argument('text', type=str,
+                        help='text to be manipulated')
+    parser.add_argument("-u", '--upper',   action="store_true",
+                        help='convert text to uppercase')
+    parser.add_argument("-l", '--lower',   action="store_true",
+                        help='convert text to lowercase')
+    parser.add_argument("-t", '--title',   action="store_true",
+                        help='convert text to titlecase')
+
     """Creates and returns an argparse cmd line option parser"""
-    pass
+    return parser
 
 
 def main(args):
     """Implementation of echo"""
-    pass
+    parser = create_parser()
+    p_args = parser.parse_args(args)
+    text = p_args.text
+    if p_args.upper:
+        text = text.upper()
+    if p_args.lower:
+        text = text.lower()
+    if p_args.title:
+        text = text.title()
+    return text
 
 
 if __name__ == '__main__':
-    pass
+    main(sys.argv[1:])
